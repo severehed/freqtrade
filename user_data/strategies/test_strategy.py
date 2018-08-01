@@ -12,11 +12,13 @@ import numpy # noqa
 
 # This class is a sample. Feel free to customize it.
 class TestStrategy(IStrategy):
+    __test__ = False  # pytest expects to find tests here because of the name
     """
     This is a test strategy to inspire you.
     More information in https://github.com/freqtrade/freqtrade/blob/develop/docs/bot-optimization.md
 
     You can:
+        :return: a Dataframe with all mandatory indicators for the strategies
     - Rename the class name (Do not forget to update class_name)
     - Add any methods you want to build your strategy
     - Add any lib you need to build your strategy
@@ -43,13 +45,16 @@ class TestStrategy(IStrategy):
     # Optimal ticker interval for the strategy
     ticker_interval = '5m'
 
-    def populate_indicators(self, dataframe: DataFrame) -> DataFrame:
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
         Adds several different TA indicators to the given DataFrame
 
         Performance Note: For the best performance be frugal on the number of indicators
         you are using. Let uncomment only the indicator you are using in your strategies
         or your hyperopt configuration, otherwise you will waste your memory and CPU usage.
+        :param dataframe: Raw data from the exchange and parsed by parse_ticker_dataframe()
+        :param metadata: Additional information, like the currently traded pair
+        :return: a Dataframe with all mandatory indicators for the strategies
         """
 
         # Momentum Indicator
@@ -210,10 +215,11 @@ class TestStrategy(IStrategy):
 
         return dataframe
 
-    def populate_buy_trend(self, dataframe: DataFrame) -> DataFrame:
+    def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
         Based on TA indicators, populates the buy signal for the given dataframe
-        :param dataframe: DataFrame
+        :param dataframe: DataFrame populated with indicators
+        :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with buy column
         """
         dataframe.loc[
@@ -226,10 +232,11 @@ class TestStrategy(IStrategy):
 
         return dataframe
 
-    def populate_sell_trend(self, dataframe: DataFrame) -> DataFrame:
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         """
         Based on TA indicators, populates the sell signal for the given dataframe
-        :param dataframe: DataFrame
+        :param dataframe: DataFrame populated with indicators
+        :param metadata: Additional information, like the currently traded pair
         :return: DataFrame with buy column
         """
         dataframe.loc[
