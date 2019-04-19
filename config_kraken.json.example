@@ -1,10 +1,11 @@
 {
-    "max_open_trades": 3,
-    "stake_currency": "BTC",
-    "stake_amount": 0.05,
-    "fiat_display_currency": "USD",
+    "max_open_trades": 5,
+    "stake_currency": "EUR",
+    "stake_amount": 10,
+    "fiat_display_currency": "EUR",
     "ticker_interval" : "5m",
     "dry_run": true,
+    "db_url": "sqlite:///tradesv3.dryrun.sqlite",
     "trailing_stop": false,
     "unfilledtimeout": {
         "buy": 10,
@@ -25,36 +26,22 @@
         "order_book_max": 9
     },
     "exchange": {
-        "name": "binance",
-        "key": "your_exchange_key",
-        "secret": "your_exchange_secret",
+        "name": "kraken",
+        "key": "",
+        "secret": "",
         "ccxt_config": {"enableRateLimit": true},
         "ccxt_async_config": {
             "enableRateLimit": true,
-            "rateLimit": 200
+            "rateLimit": 1000
         },
         "pair_whitelist": [
-            "AST/BTC",
-            "ETC/BTC",
-            "ETH/BTC",
-            "EOS/BTC",
-            "IOTA/BTC",
-            "LTC/BTC",
-            "MTH/BTC",
-            "NCASH/BTC",
-            "TNT/BTC",
-            "XMR/BTC",
-            "XLM/BTC",
-            "XRP/BTC"
+            "ETH/EUR",
+            "BTC/EUR",
+            "BCH/EUR"
         ],
         "pair_blacklist": [
-            "BNB/BTC"
+
         ]
-    },
-    "experimental": {
-        "use_sell_signal": false,
-        "sell_profit_only": false,
-        "ignore_roi_if_buy_signal": false
     },
     "edge": {
         "enabled": false,
@@ -73,8 +60,8 @@
     },
     "telegram": {
         "enabled": false,
-        "token": "your_telegram_token",
-        "chat_id": "your_telegram_chat_id"
+        "token": "",
+        "chat_id": ""
     },
     "initial_state": "running",
     "forcebuy_enable": false,
